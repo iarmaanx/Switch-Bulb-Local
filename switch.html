@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Switch Control (Local)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 flex items-center justify-center h-screen text-white">
+
+  <button id="toggleBtn" class="px-8 py-4 bg-blue-500 text-white rounded-xl text-2xl hover:bg-blue-600 transition">
+    Turn ON
+  </button>
+
+  <script>
+    const btn = document.getElementById("toggleBtn");
+
+    // Load existing state on load
+    let status = localStorage.getItem("bulbStatus") || "off";
+    btn.textContent = status === "on" ? "Turn OFF" : "Turn ON";
+
+    btn.addEventListener("click", () => {
+      status = (status === "off") ? "on" : "off";
+      localStorage.setItem("bulbStatus", status);
+      btn.textContent = status === "on" ? "Turn OFF" : "Turn ON";
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bulb Display (Local)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 flex flex-col items-center justify-center h-screen text-white">
+
+  <div class="w-48 h-48 rounded-full bg-gray-800 flex items-center justify-center shadow-inner transition-all duration-500" id="bulb">
+    <div class="w-24 h-24 rounded-full bg-yellow-400 opacity-0 transition-opacity duration-500" id="glow"></div>
+  </div>
+
+  <h1 class="mt-8 text-2xl" id="statusText">Bulb is OFF</h1>
+
+  <script>
+    const glow = document.getElementById("glow");
+    const statusText = document.getElementById("statusText");
+
+    function updateBulb() {
+      const status = localStorage.getItem("bulbStatus") || "off";
+
+      if (status === "on") {
+        glow.classList.remove("opacity-0");
+        glow.classList.add("opacity-100");
+        statusText.textContent = "Bulb is ON";
+      } else {
+        glow.classList.remove("opacity-100");
+        glow.classList.add("opacity-0");
+        statusText.textContent = "Bulb is OFF";
+      }
+    }
+
+    // Run immediately on load
+    updateBulb();
+
+    // Then check every 2 seconds
+    setInterval(updateBulb, 2000);
+  </script>
+
+</body>
+</html>
