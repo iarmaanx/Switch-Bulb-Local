@@ -2,29 +2,59 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Bulb Switch Project</title>
+  <title>Light the Bulb Project</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/48/light-on.png">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+  <style>
+    .font-cursive {
+      font-family: 'Pacifico', cursive;
+    }
+  </style>
 </head>
 <body class="bg-gray-900 flex flex-col items-center justify-between min-h-screen text-white py-12">
 
-  <h1 class="text-4xl font-bold">💡 Bulb Switch Project</h1>
+  <!-- Heading -->
+  <h1 class="text-5xl font-cursive text-yellow-400">💡 Light the Bulb Project</h1>
 
-  <div class="flex gap-8 mt-12">
-    <a href="switch.html" target="_blank" class="px-8 py-6 bg-blue-500 rounded-2xl text-2xl hover:bg-blue-600 transition shadow-lg">
+  <!-- Action Buttons -->
+  <div class="flex flex-wrap gap-8 mt-16">
+    <a href="switch.html" target="_blank" class="px-10 py-6 bg-blue-500 rounded-2xl text-2xl hover:bg-blue-600 transition shadow-lg">
       🔘 Go to Switch
     </a>
 
-    <a href="bulb.html" target="_blank" class="px-8 py-6 bg-yellow-500 rounded-2xl text-2xl hover:bg-yellow-600 transition shadow-lg text-black">
+    <a href="bulb.html" target="_blank" class="px-10 py-6 bg-yellow-400 text-black rounded-2xl text-2xl hover:bg-yellow-500 transition shadow-lg">
       💡 Go to Bulb
     </a>
+
+    <button id="howBtn" class="px-8 py-6 bg-green-500 rounded-2xl text-2xl hover:bg-green-600 transition shadow-lg">
+      📖 How it Works
+    </button>
+  </div>
+
+  <!-- Project Description (hidden by default) -->
+  <div id="descBox" class="max-w-xl text-center mt-12 text-gray-300 text-lg leading-relaxed px-4 hidden">
+    📦 This project uses <span class="text-yellow-400 font-semibold">Local Storage</span> in your browser to save the current status of the bulb (ON or OFF).
+    When you turn the switch ON, it stores the status as <code>"on"</code> locally, and the bulb page reads this value every 2 seconds to update its display.
+    No internet or server is required — everything works right inside your browser.
   </div>
 
   <!-- Footer -->
-  <p class="text-gray-400 text-center font-medium">
-  Coded by 
+  <p class="text-gray-400 text-center font-medium mt-16">
+    Coded with ❤️ by 
     <a href="https://linksbyarmaan.netlify.app" target="_blank" class="text-blue-400 hover:underline font-semibold">Armaan</a>
   </p>
+
+  <!-- JS to toggle visibility -->
+  <script>
+    const howBtn = document.getElementById("howBtn");
+    const descBox = document.getElementById("descBox");
+
+    howBtn.addEventListener("click", () => {
+      descBox.classList.toggle("hidden");
+    });
+  </script>
 
 </body>
 </html>
