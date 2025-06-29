@@ -2,28 +2,71 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Switch Control (Local)</title>
+  <title>Local Switch Control</title>
+  <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/48/switch-on.png">
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-900 flex items-center justify-center h-screen text-white">
+<body class="bg-gray-900 flex flex-col items-center justify-center h-screen text-white space-y-24">
 
-  <button id="toggleBtn" class="px-8 py-4 bg-blue-500 text-white rounded-xl text-2xl hover:bg-blue-600 transition">
-    Turn ON
+  <!-- Heading -->
+  <h1 class="text-5xl font-bold animate-fadeIn">Local Bulb Switch 🕹️</h1>
+
+  <!-- Toggle Button -->
+  <button id="toggleBtn" class="px-12 py-6 bg-blue-500 text-white rounded-2xl text-3xl hover:bg-blue-600 transition-all duration-300 ease-in-out shadow-lg transform hover:scale-105 animate-fadeIn delay-200">
+    Loading...
   </button>
+
+  <!-- Status Text -->
+  <p id="statusText" class="text-2xl font-semibold animate-fadeIn delay-400">Checking status...</p>
+
 
   <script>
     const btn = document.getElementById("toggleBtn");
+    const statusText = document.getElementById("statusText");
 
-    // Load existing state on load
+    // Load existing state on page load
     let status = localStorage.getItem("bulbStatus") || "off";
-    btn.textContent = status === "on" ? "Turn OFF" : "Turn ON";
+
+    function updateUI() {
+      btn.textContent = status === "on" ? "Turn OFF" : "Turn ON";
+      statusText.textContent = status === "on" ? "🔆 Bulb is ON" : "💤 Bulb is OFF";
+      statusText.className = status === "on" 
+        ? "text-green-400 text-2xl font-semibold animate-pulse"
+        : "text-gray-400 text-2xl font-semibold";
+
+      // Add button glow effect if ON
+      if (status === "on") {
+        btn.classList.add("shadow-yellow-400");
+      } else {
+        btn.classList.remove("shadow-yellow-400");
+      }
+    }
+
+    updateUI(); // Run on load
 
     btn.addEventListener("click", () => {
       status = (status === "off") ? "on" : "off";
       localStorage.setItem("bulbStatus", status);
-      btn.textContent = status === "on" ? "Turn OFF" : "Turn ON";
+      updateUI();
     });
   </script>
+
+  <!-- Tailwind animations -->
+  <style>
+    .animate-fadeIn {
+      animation: fadeIn 0.8s ease forwards;
+      opacity: 0;
+    }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
 
 </body>
 </html>

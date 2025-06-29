@@ -3,18 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <title>Bulb Display (Local)</title>
+  <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/48/light-on.png">
   <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-900 flex flex-col items-center justify-center h-screen text-white">
+  <style>
+    .glow-on {
+      box-shadow: 0 0 50px #fde047, 0 0 80px #fde047, 0 0 100px #fde047;
+      animation: pulse 2s infinite;
+    }
 
-  <div class="w-48 h-48 rounded-full bg-gray-800 flex items-center justify-center shadow-inner transition-all duration-500" id="bulb">
-    <div class="w-24 h-24 rounded-full bg-yellow-400 opacity-0 transition-opacity duration-500" id="glow"></div>
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 30px #fde047, 0 0 50px #fde047, 0 0 70px #fde047;
+      }
+      50% {
+        box-shadow: 0 0 60px #fde047, 0 0 90px #fde047, 0 0 120px #fde047;
+      }
+      100% {
+        box-shadow: 0 0 30px #fde047, 0 0 50px #fde047, 0 0 70px #fde047;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-900 flex flex-col items-center justify-center h-screen text-white space-y-24">
+
+  <!-- Heading -->
+  <h1 class="text-5xl font-bold">💡 Bulb Display</h1>
+
+  <!-- Bulb Icon -->
+  <div class="relative w-44 h-44 rounded-full bg-gray-800 flex items-center justify-center transition-all duration-500 shadow-lg" id="bulb">
+    <!-- Glow Circle -->
+    <div id="glow" class="w-32 h-32 rounded-full bg-yellow-400 opacity-0 transition-all duration-500"></div>
+    <!-- Bulb Cap -->
+    <div class="absolute bottom-[-28px] w-14 h-8 bg-gray-700 rounded-b-lg border-t-4 border-gray-600"></div>
   </div>
 
-  <h1 class="mt-8 text-2xl" id="statusText">Bulb is OFF</h1>
+  <!-- Status Text -->
+  <h2 id="statusText" class="text-2xl font-semibold text-gray-300">Bulb is OFF</h2>
 
   <script>
     const glow = document.getElementById("glow");
+    const bulb = document.getElementById("bulb");
     const statusText = document.getElementById("statusText");
 
     function updateBulb() {
@@ -23,11 +51,17 @@
       if (status === "on") {
         glow.classList.remove("opacity-0");
         glow.classList.add("opacity-100");
-        statusText.textContent = "Bulb is ON";
+        bulb.classList.add("glow-on");
+        statusText.textContent = "🔆 Bulb is ON";
+        statusText.classList.remove("text-gray-300");
+        statusText.classList.add("text-yellow-400");
       } else {
         glow.classList.remove("opacity-100");
         glow.classList.add("opacity-0");
-        statusText.textContent = "Bulb is OFF";
+        bulb.classList.remove("glow-on");
+        statusText.textContent = "💤 Bulb is OFF";
+        statusText.classList.remove("text-yellow-400");
+        statusText.classList.add("text-gray-300");
       }
     }
 
